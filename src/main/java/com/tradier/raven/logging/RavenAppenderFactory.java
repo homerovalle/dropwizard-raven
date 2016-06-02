@@ -26,6 +26,12 @@ public class RavenAppenderFactory extends AbstractAppenderFactory {
     @JsonProperty
     private String tags = null;
 
+    @JsonProperty
+    private String release = null;
+
+    @JsonProperty
+    private String serverName = null;
+
     public String getDsn() {
 		return dsn;
 	}
@@ -42,6 +48,22 @@ public class RavenAppenderFactory extends AbstractAppenderFactory {
 		this.tags = tags;
 	}
 
+    public String getRelease() {
+        return release;
+    }
+
+    public void setRelease(String release) {
+        this.release = release;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
 	@Override
     public Appender<ILoggingEvent> build(LoggerContext context, String applicationName, Layout<ILoggingEvent> layout) {
         checkNotNull(context);
@@ -52,6 +74,10 @@ public class RavenAppenderFactory extends AbstractAppenderFactory {
         appender.setDsn(dsn);
         if(tags != null)
         	appender.setTags(tags);
+        if(release != null)
+            appender.setRelease(release);
+        if(serverName != null)
+            appender.setServerName(serverName);
 
         appender.start();
 
